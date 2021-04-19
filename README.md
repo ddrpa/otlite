@@ -6,6 +6,6 @@
 
 我的语文水平也不怎么样，做个截图仅供 demo 参考，希望诸君不要对内容作过多评价 🐶 。
 
-![Screenshot 1](/demo/Screenshot_1.png)
+![Screenshot 1](/docs/Screenshot_1.png)
 
 什么，你问我文章长了怎么办？用 [OmegaT](https://omegat.org/) 啊 🐶 。
