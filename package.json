@@ -1,9 +1,9 @@
 {
-  "name": "svelte-app",
+  "name": "oslite",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && cp public/build/bundle.js demo/bundle.js",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear"
   },
