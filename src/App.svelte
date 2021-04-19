@@ -63,6 +63,7 @@
   }, "");
 
   function handleShortcut(event) {
+    // https://omegat.sourceforge.io/manual-latest/zh_CN/chapter.menu.html
     if (event.ctrlKey) {
       const currentSegmentId = parseInt(event.target.dataset.segmentId);
       if (event.key === "Enter" || event.key === "p") {
@@ -122,7 +123,7 @@
         <div class="resize-bar" />
         <div class="resize-line" />
         <div class="pane-left-actual">
-          {#each segments as { source, target, id, status, prefix, suffix }, index}
+          {#each segments as { source, target, id, status }, index}
             <p>
               {source}
               <span
@@ -140,15 +141,6 @@
               on:keyup={handleShortcut}
               on:blur={() => (status = SEGMENT_STATUS.MODIFIED)}
             />
-            <!-- <p><span
-              data-segment-id={id}
-              class="line-editor textarea"
-              on:keyup={handleShortcut}
-              on:blur={() => (status = SEGMENT_STATUS.MODIFIED)}
-              role="textbox"
-			  bind:innerHTML={target}
-              contenteditable></span
-            ></p> -->
             <button
               on:click={() => {
                 target = source;
@@ -186,10 +178,7 @@
     color: green;
   }
 
-  /* main {
-    padding: 1em;
-    margin: 0 auto;
-  } */
+  /* https://www.zhangxinxu.com/study/201903/css-idea/behavior-stretch.php */
   .pane-container {
     overflow: hidden;
   }
