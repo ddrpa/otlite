@@ -1,10 +1,10 @@
 /node_modules/
 /public/build/
 
-/scripts/
+/scripts/setupTypeScript.js
+userscript.js
+whatsnext
 
 *.bak
 
 .DS_Store
-
-whatsnext

@@ -17,6 +17,7 @@
   let sourceText = "";
   let segments = [];
   let autoSaveTimerID;
+  let translatorSupported = false;
 
   // 段落分片
   function _sentences(source) {
@@ -72,6 +73,11 @@
     _loadSave();
     // 定时存档
     autoSaveTimerID = setInterval(() => _saveSegments(segments, VERSION), AUTOSAVE_TIME_INTERVAL);
+    // try access translatorHelper
+    translatorSupported = undefined !== window.translatorHelper;
+    if (translatorSupported) {
+      console.info(`window.translatorHelper.version: ${window.translatorHelper.version}`);
+    }
   });
 
   onDestroy(async () => {
@@ -151,6 +157,19 @@
             return segment;
           }
         });
+      } else if (event.key === "m" && translatorSupported) {
+        const segmentIndex = segments.findIndex((segment) => segment.id === currentSegmentId);
+        const currentSegment = segments[segmentIndex];
+        window.translatorHelper
+          .insertTask(currentSegment.source)
+          .then((tgt) => {
+            segments = [
+              ...segments.slice(0, segmentIndex),
+              { ...currentSegment, target: tgt },
+              ...segments.slice(segmentIndex + 1),
+            ];
+          })
+          .catch(console.error);
       }
     } else if (event.key === "Enter") {
       const currentSegmentId = parseInt(event.target.dataset.segmentId);
@@ -188,10 +207,7 @@
   function handleExportToClipBoard() {
     navigator.clipboard
       .writeText(preview)
-      .then(() => {
-        console.log("copied");
-        console.log(preview);
-      })
+      .then(() => {})
       .catch(console.error);
   }
 
@@ -250,9 +266,9 @@
       </label>
       <label for="translator">
         <input type="checkbox" name="translator" disabled />
-        启用翻译服务
+        启用自动翻译（开发中）
       </label>
-      <a disabled href="https://github.com/ddrpa/otlite" target="_blank">如何配置翻译服务（开发中）</a>
+      <a disabled href="https://github.com/ddrpa/otlite" target="_blank">如何配置翻译服务</a>
       <button on:click={handleExportToClipBoard}>导出到剪贴板</button>
       <a href="https://github.com/ddrpa/otlite" target="_blank">帮助</a>
       <button on:click={handleClearAll}>清空所有内容</button>
