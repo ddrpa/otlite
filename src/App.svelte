@@ -244,7 +244,6 @@
   {:else}
     <div class="tools">
       <button on:click={handleSave}>立即保存</button>
-      <button on:click={handleExportToClipBoard}>导出到剪贴板</button>
       <label for="autosave">
         <input type="checkbox" name="autosave" on:change={handleAutoSaveToggle} />
         自动保存（每{AUTOSAVE_TIME_INTERVAL / 1000}秒保存一次）
@@ -254,6 +253,7 @@
         启用翻译服务
       </label>
       <a disabled href="https://github.com/ddrpa/otlite" target="_blank">如何配置翻译服务（开发中）</a>
+      <button on:click={handleExportToClipBoard}>导出到剪贴板</button>
       <a href="https://github.com/ddrpa/otlite" target="_blank">帮助</a>
       <button on:click={handleClearAll}>清空所有内容</button>
     </div>
